@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include("./partials/head.ejs")%>
+<link rel="stylesheet" href="/style.css">
+
+  <body>
+
+    <%- include("./partials/nav.ejs")%>
+      <div class="container">
+        <h1>Task Management</h1>
+
+      <% if (tasks.length===0) { %>
+        <p>No tasks found.</p>
+        <% } else { %>
+          <ul>
+            <% tasks.forEach(task=> { %>
+              <li class="tasks">
+                <h2>
+                  <%= task.title %>
+                </h2>
+                <p>Status: <%= task.status %>
+                </p>
+                <p>Priority: <%= task.priority %>
+                </p>
+                <p>Due Date: <%= task.dueDate.toISOString().split('T')[0] %>
+                </p>
+                <p>Assignee: <%= task.assignee %>
+                </p>
+                <a href="/tasks/<%=task._id%>">UpdateTask</a>
+                <form action="/tasks/<%=task._id%>?_method=DELETE" method="post">
+                  <button type="submit">Delete Task</button>
+                </form>
+              </li>
+              <% }) %>
+          </ul>
+          <% } %>
+            <a href="/tasks/home">Get back to home</a>
+            <a href="/auth/logout" class="logout">Logout</a>
+      </div>
+            <%- include("./partials/foot.ejs")%>
+  </body>
+
+</html>

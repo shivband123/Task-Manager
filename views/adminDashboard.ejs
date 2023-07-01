@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include("./partials/head.ejs")%>
+<link rel="stylesheet" href="/style.css">
+<body>
+<%- include("./partials/nav.ejs")%>
+
+<h1>Admin Dashboard</h1>
+
+<div>
+  <h2>Manage Users</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Username</th>
+        <th>Email</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% users.forEach((user) => { %>
+        <tr>
+          <td><%= user.name %></td>
+          <td><%= user.email %></td>
+          <td>
+            <% if (user.role !== 'admin') { %>
+              <form method="POST" action="/admin/<%= user._id %>?_method=DELETE">
+                <button type="submit">Remove</button>
+              </form>
+            <% } else { %>
+              N/A
+            <% } %>
+          </td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+</div>
+<%- include("./partials/foot.ejs")%>
+</body>
+</html>

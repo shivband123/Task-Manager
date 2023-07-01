@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include("./partials/head.ejs")%>
+<link rel="stylesheet" href="/style.css">
+<body>
+
+ <h1>Update Task</h1>
+
+  <a href="/tasks/home">Get back to Home</a>
+  
+  <form action="/tasks/<%=task._id%>?_method=PUT" method="POST">
+    <label for="title">Title:</label>
+    <input type="text" name="title" id="title" value="<%=task.title%>">
+
+    <label for="status">Status:</label>
+    <select name="status" id="status">
+      <option value="Completed"<%if(task.status==='Completed'){%>selected<%}%>>Completed</option>
+      <option value="Pending"<%if(task.status==='Pending'){%>selected<%}%>>Pending</option>
+    </select>
+    <!-- <input type="text" name="status" id="status" required> -->
+
+    <label for="priority">Priority:</label>
+    <select name="priority" id="priority">
+      <option value="High"<%if(task.priority==='High'){%>selected<%}%>>High</option>
+      <option value="Mid"<%if(task.priority==='Mid'){%>selected<%}%>>Mid</option>
+      <option value="Low"<%if(task.priority==='Low'){%>selected<%}%>>Low</option>
+    </select>
+    <!-- <input type="text" name="priority" id="priority" required> -->
+
+    <label for="dueDate">Due Date:</label>
+    <input type="date" name="dueDate" id="dueDate"  value="<%= task.dueDate.toISOString().split('T')[0] %>">
+
+    <label for="assignee">Assignee:</label>
+    <input type="text" name="assignee" id="assignee" value="<%=task.assignee%>">
+
+    <button type="submit">Update Task</button>
+  </form>
+
+  <%- include("./partials/foot.ejs")%>
+</body>
+</html>
